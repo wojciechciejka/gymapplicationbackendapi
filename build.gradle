@@ -37,6 +37,10 @@ dependencies {
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 
+	compile group: 'redis.clients', name: 'jedis', version: '3.3.0'
+	compile group: 'org.springframework.data', name: 'spring-data-redis', version: '2.4.0'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
