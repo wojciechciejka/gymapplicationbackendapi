@@ -50,7 +50,8 @@ public class AuthenticationProviderImpl implements org.springframework.security.
 
     private boolean loginValidation(String username, String password) {
         User user = redisService.getUser(username);
-        if(user != null){// && user.getPassword().equals(new BCryptPasswordEncoder().encode(password + user.getPassword_salt()))){
+        String str = new BCryptPasswordEncoder().encode(password + user.getPassword_salt());
+        if(user != null && new BCryptPasswordEncoder().matches(password + user.getPassword_salt(), user.getPassword())){
             return true;
         }else {
             return false;

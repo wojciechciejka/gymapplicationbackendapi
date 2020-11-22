@@ -106,5 +106,10 @@ public class RedisService {
         template.expire(key, timeout, unit);
     }
 
+    public SessionUser getSession(String userName) {
+        SessionUser sessionUser;
+        sessionUser = (SessionUser) template.opsForHash().get(KEY_TOKEN+userName, userName);
+        return sessionUser;
+    }
 }
 
