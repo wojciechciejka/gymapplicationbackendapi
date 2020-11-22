@@ -26,9 +26,9 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 //    private TokenAuthenticationService tokenAuthenticationService;
 
     @Value("${jwt.expirationTime}")
-    Long expirationTime;
+    private Long expirationTime;
     @Value("${jwt.secret}")
-    String secret;
+    private String secret;
 
 //    protected JWTLoginFilter(String url) {
 //        super(new AntPathRequestMatcher(url));
@@ -52,11 +52,12 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication)
             throws IOException, ServletException {
 
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        AuthenticationTokenImpl auth = (AuthenticationTokenImpl) authentication;
+//        UserDetails principal = (UserDetails) authentication.getPrincipal();
         String token = JWT.create()
-                .withSubject(principal.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
-                .sign(Algorithm.HMAC256(secret));
+                .withSubject((String) auth.getPrincipal())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 3600000))
+                .sign(Algorithm.HMAC256("secret"));
         response.addHeader("Authorization", "Bearer" + token);
     }
 

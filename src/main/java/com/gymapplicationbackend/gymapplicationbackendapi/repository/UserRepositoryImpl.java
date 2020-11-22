@@ -19,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean addUser(User user) {
         try{
-            redisTemplate.opsForHash().put(KEY, user.getEmailId(), user);
+            redisTemplate.opsForHash().put(KEY, user.getUsername(), user);
             return true;
         }catch (Exception e){
             e.printStackTrace();

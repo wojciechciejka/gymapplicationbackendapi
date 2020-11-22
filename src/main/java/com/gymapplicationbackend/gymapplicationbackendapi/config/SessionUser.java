@@ -2,12 +2,13 @@ package com.gymapplicationbackend.gymapplicationbackendapi.config;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
 @Data
-public class SessionUser {
+public class SessionUser implements Serializable {
 
     private String username;
 
