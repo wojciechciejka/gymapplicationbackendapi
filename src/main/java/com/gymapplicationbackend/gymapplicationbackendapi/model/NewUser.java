@@ -11,5 +11,6 @@ public class NewUser implements Serializable {
     private String username;
     private String emailId;
     private String password;
+    private String role;
     private int age;
 }

@@ -59,6 +59,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
                 .withExpiresAt(new Date(System.currentTimeMillis() + 3600000))
                 .sign(Algorithm.HMAC256("secret"));
         response.addHeader("Authorization", "Bearer" + token);
+        response.addHeader("Role", auth.getRole());
     }
 
     @Override

@@ -14,6 +14,8 @@ public class SessionUser implements Serializable {
 
     private String password;
 
+    private String role;
+
     private Date created;
 
     public boolean hasExpired() {
@@ -25,4 +27,7 @@ public class SessionUser implements Serializable {
         return  Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant()).before(new Date());
     }
 
+    public String getRole() {
+        return role;
+    }
 }

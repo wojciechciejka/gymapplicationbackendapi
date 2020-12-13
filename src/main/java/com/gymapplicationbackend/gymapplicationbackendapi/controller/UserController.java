@@ -45,6 +45,7 @@ public class UserController {
         user.setEmailId(newUser.getEmailId());
         user.setUsername(newUser.getUsername());
         user.setPassword_salt(randomString());
+        user.setRole(newUser.getRole());
         user.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword() + user.getPassword_salt()));
         user.setAge(newUser.getAge());
         return user;

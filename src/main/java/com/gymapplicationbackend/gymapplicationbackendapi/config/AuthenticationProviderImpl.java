@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class AuthenticationProviderImpl implements org.springframework.security.authentication.AuthenticationProvider {
 
     private RedisService redisService;
+    private String role;
 
     public AuthenticationProviderImpl(RedisService service) {
         this.redisService = service;
@@ -35,11 +36,13 @@ public class AuthenticationProviderImpl implements org.springframework.security.
         //Right now just authenticate on the basis of the user=pass
         if (loginValidation(username, password)) {
             SessionUser u = new SessionUser();
+            u.setRole(role);
             u.setUsername(username);
             u.setCreated(new Date());
             AuthenticationTokenImpl auth = new AuthenticationTokenImpl(u.getUsername(), Collections.emptyList());
             auth.setAuthenticated(true);
             auth.setDetails(u);
+            auth.setRole(role);
             redisService.addToken(u);
             return auth;
         } else {
@@ -52,6 +55,7 @@ public class AuthenticationProviderImpl implements org.springframework.security.
         User user = redisService.getUser(username);
         String str = new BCryptPasswordEncoder().encode(password + user.getPassword_salt());
         if(user != null && new BCryptPasswordEncoder().matches(password + user.getPassword_salt(), user.getPassword())){
+            role = user.getRole();
             return true;
         }else {
             return false;
