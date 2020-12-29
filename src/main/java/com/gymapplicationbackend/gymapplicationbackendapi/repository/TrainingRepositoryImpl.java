@@ -25,9 +25,10 @@ public class TrainingRepositoryImpl implements TrainingRepository{
     }
 
     @Override
-    public boolean addUserTraining(String username, Training training) {
+    public boolean addUserTraining(Training training) {
         try{
-            redisTemplate.opsForHash().put(username + "_" + KEY, training.getDate(), training);
+            redisTemplate.opsForHash().put(training.getPlayerUsername() + "_" + KEY, training.getDate(), training);
+            redisTemplate.opsForHash().put(training.getTrainerUsername() + "_" + KEY, training.getDate(), training);
             return true;
         }catch (Exception e){
             e.printStackTrace();
@@ -36,11 +37,10 @@ public class TrainingRepositoryImpl implements TrainingRepository{
     }
 
     @Override
-    public boolean deleteUserTraining(String username, long date) {
+    public boolean deleteUserTraining(String playerUsername, String trainerUsername, long date) {
         try{
-            Set<Training> set = redisTemplate.opsForHash().keys(username + "_" + KEY);
-            Long result = redisTemplate.opsForHash().delete(username + "_" + KEY, date);
-//            .set("key", "", 1, TimeUnit.MILLISECONDS);
+            Long result = redisTemplate.opsForHash().delete(playerUsername + "_" + KEY, date);
+            result = redisTemplate.opsForHash().delete(trainerUsername + "_" + KEY, date);
             return true;
         }catch (Exception e){
             e.printStackTrace();

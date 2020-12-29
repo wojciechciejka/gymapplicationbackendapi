@@ -27,8 +27,8 @@ public class TrainingController {
     }
 
     @PostMapping("/addUserTrainings")
-    public ResponseEntity<String> addUserTraining(@RequestParam("username") String username, @RequestBody Training training){
-        boolean result = trainingService.addUserTraining(username, training);
+    public ResponseEntity<String> addUserTraining(@RequestBody Training training){
+        boolean result = trainingService.addUserTraining(training);
         if(result){
             return ResponseEntity.ok("Training added Successfully !!");
         }else{
@@ -37,8 +37,8 @@ public class TrainingController {
     }
 
     @PostMapping("/deleteUserTrainings")
-    public ResponseEntity<String> deleteUserTraining(@RequestParam("username") String username, @RequestParam("date") long date){
-        boolean result = trainingService.deleteUserTraining(username, date);
+    public ResponseEntity<String> deleteUserTraining(@RequestParam("playerUsername") String playerUsername, @RequestParam("trainerUsername") String trainerUsername, @RequestParam("date") long date){
+        boolean result = trainingService.deleteUserTraining(playerUsername, trainerUsername, date);
         if(result){
             return ResponseEntity.ok("Training deleted Successfully !!");
         }else{

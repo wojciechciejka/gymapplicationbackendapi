@@ -19,11 +19,11 @@ public class TrainingService {
         return trainingRepository.getUserTrainings(username);
     }
 
-    public boolean addUserTraining(String username, Training training) {
-        return trainingRepository.addUserTraining(username, training);
+    public boolean addUserTraining(Training training) {
+        return trainingRepository.addUserTraining(training);
     }
 
-    public boolean deleteUserTraining(String username, long date) {
-        return trainingRepository.deleteUserTraining(username, date);
+    public boolean deleteUserTraining(String playerUsername, String trainerUsername, long date) {
+        return trainingRepository.deleteUserTraining(playerUsername, trainerUsername, date);
     }
 }
