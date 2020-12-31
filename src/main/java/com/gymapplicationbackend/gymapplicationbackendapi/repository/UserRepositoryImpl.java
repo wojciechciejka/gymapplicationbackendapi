@@ -29,8 +29,8 @@ public class UserRepositoryImpl implements UserRepository {
                 trainer.setFirstName(user.getFirstName());
                 trainer.setLastName(user.getLastName());
                 trainer.setFullName(user.getFirstName() + " " + user.getLastName());
-                trainer.setNick(user.getUsername());
-                redisTemplate.opsForHash().put(KEY_TRAINER, trainer.getNick(), trainer);
+                trainer.setUsername(user.getUsername());
+                redisTemplate.opsForHash().put(KEY_TRAINER, trainer.getUsername(), trainer);
             }
             return true;
         }catch (Exception e){
