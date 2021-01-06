@@ -11,6 +11,7 @@ public class Training implements Serializable {
     private String description;
     private String address;
     private String trainerUsername;
+    private String trainerFullname;
     private String playerUsername;
     private String typeofTraining;
 }
