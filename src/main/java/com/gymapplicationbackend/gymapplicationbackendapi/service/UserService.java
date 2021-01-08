@@ -22,4 +22,12 @@ public class UserService {
     public List<User> fetchAllUser() {
         return UserRepository.getAllUser();
     }
+
+    public boolean setUser(User user) {
+        return UserRepository.setUser(user);
+    }
+
+    public User getUser(String username) {
+        return UserRepository.getUser(username);
+    }
 }

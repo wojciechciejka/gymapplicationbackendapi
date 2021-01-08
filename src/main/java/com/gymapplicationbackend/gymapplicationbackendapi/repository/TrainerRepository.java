@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface TrainerRepository {
     List<Trainer> getAllTrainers();
+    Trainer getTrainer(String username);
+    boolean setTrainer(Trainer trainer);
 }

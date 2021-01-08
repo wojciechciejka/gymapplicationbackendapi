@@ -21,4 +21,17 @@ public class TrainerRepositoryImpl implements TrainerRepository{
         trainers = redisTemplate.opsForHash().values(KEY);
         return trainers;
     }
+
+    @Override
+    public Trainer getTrainer(String username) {
+        Trainer trainer = (Trainer) redisTemplate.opsForHash().get(KEY, username);
+        return trainer;
+    }
+
+    @Override
+    public boolean setTrainer(Trainer trainer) {
+        redisTemplate.opsForHash().put(KEY, trainer.getUsername(), trainer);
+        return true;
+    }
+
 }

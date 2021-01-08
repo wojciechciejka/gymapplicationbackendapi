@@ -1,5 +1,6 @@
 package com.gymapplicationbackend.gymapplicationbackendapi.repository;
 
+import com.gymapplicationbackend.gymapplicationbackendapi.model.Player;
 import com.gymapplicationbackend.gymapplicationbackendapi.model.Trainer;
 import com.gymapplicationbackend.gymapplicationbackendapi.model.User;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
     private RedisTemplate redisTemplate;
     private static final String KEY = "USERS";
     private static final String KEY_TRAINER = "TRAINERS";
+    private static final String KEY_PLAYER = "PLAYERS";
 
     @Override
     public boolean addUser(User user) {
@@ -30,7 +32,18 @@ public class UserRepositoryImpl implements UserRepository {
                 trainer.setLastName(user.getLastName());
                 trainer.setFullName(user.getFirstName() + " " + user.getLastName());
                 trainer.setUsername(user.getUsername());
+                trainer.setEmailId(user.getEmailId());
+                trainer.setAge(user.getAge());
                 redisTemplate.opsForHash().put(KEY_TRAINER, trainer.getUsername(), trainer);
+            }else{
+                Player player = new Player();
+                player.setFirstName(user.getFirstName());
+                player.setLastName(user.getLastName());
+                player.setFullName(user.getFirstName() + " " + user.getLastName());
+                player.setUsername(user.getUsername());
+                player.setEmailId(user.getEmailId());
+                player.setAge(user.getAge());
+                redisTemplate.opsForHash().put(KEY_PLAYER, player.getUsername(), player);
             }
             return true;
         }catch (Exception e){
@@ -44,5 +57,18 @@ public class UserRepositoryImpl implements UserRepository {
         List<User> users;
         users = redisTemplate.opsForHash().values(KEY);
         return users;
+    }
+
+    @Override
+    public boolean setUser(User user) {
+        redisTemplate.opsForHash().put(KEY, user.getUsername(), user);
+        return true;
+    }
+
+    @Override
+    public User getUser(String username) {
+        User user;
+        user = (User) redisTemplate.opsForHash().get(KEY, username);
+        return user;
     }
 }

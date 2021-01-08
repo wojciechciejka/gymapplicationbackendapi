@@ -17,4 +17,12 @@ public class TrainerService {
     public List<Trainer> getAllTrainers() {
         return trainerRepository.getAllTrainers();
     }
+
+    public Trainer getTrainer(String username) {
+        return trainerRepository.getTrainer(username);
+    }
+
+    public boolean setTrainer(Trainer trainer) {
+        return trainerRepository.setTrainer(trainer);
+    }
 }
