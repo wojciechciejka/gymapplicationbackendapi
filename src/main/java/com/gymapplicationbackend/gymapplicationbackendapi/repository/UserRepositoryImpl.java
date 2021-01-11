@@ -60,7 +60,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean setUser(User user) {
+    public boolean setUserPassword(User user) {
         redisTemplate.opsForHash().put(KEY, user.getUsername(), user);
         return true;
     }

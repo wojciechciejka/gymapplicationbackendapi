@@ -70,13 +70,19 @@ public class UserController {
         return sb.toString();
     }
 
-    @PostMapping("/setUser")
-    public ResponseEntity<String> setUser(@RequestBody User user){
-        boolean result = userService.setUser(user);
-        if(result){
-            return ResponseEntity.ok("User Created Successfully !!");
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    @PostMapping("/setUserPassword")
+    public ResponseEntity<Boolean> setUserPassword(@RequestParam("username") String username, @RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword){
+        User user = userService.getUser(username);
+        if(user != null){
+            String str = new BCryptPasswordEncoder().encode(oldPassword + user.getPassword_salt());
+            if(new BCryptPasswordEncoder().matches(oldPassword + user.getPassword_salt(), user.getPassword())){
+                user.setPassword(new BCryptPasswordEncoder().encode(newPassword + user.getPassword_salt()));
+                userService.setUserPassword(user);
+                return ResponseEntity.ok(true);
+            }else {
+                return ResponseEntity.ok(false);
+            }
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }

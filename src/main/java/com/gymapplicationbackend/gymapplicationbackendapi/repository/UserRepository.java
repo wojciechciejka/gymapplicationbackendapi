@@ -9,6 +9,6 @@ import java.util.List;
 public interface UserRepository {
     boolean addUser(User user);
     List<User> getAllUser();
-    boolean setUser(User user);
+    boolean setUserPassword(User user);
     User getUser(String username);
 }

@@ -23,8 +23,8 @@ public class UserService {
         return UserRepository.getAllUser();
     }
 
-    public boolean setUser(User user) {
-        return UserRepository.setUser(user);
+    public boolean setUserPassword(User user) {
+        return UserRepository.setUserPassword(user);
     }
 
     public User getUser(String username) {
