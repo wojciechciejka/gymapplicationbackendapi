@@ -30,4 +30,8 @@ public class UserService {
     public User getUser(String username) {
         return UserRepository.getUser(username);
     }
+
+    public boolean logoutUser(String username) {
+        return UserRepository.logoutUser(username);
+    }
 }

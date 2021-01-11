@@ -21,6 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String KEY = "USERS";
     private static final String KEY_TRAINER = "TRAINERS";
     private static final String KEY_PLAYER = "PLAYERS";
+    private static final String KEY_TOKEN = "TOKEN";
 
     @Override
     public boolean addUser(User user) {
@@ -70,5 +71,16 @@ public class UserRepositoryImpl implements UserRepository {
         User user;
         user = (User) redisTemplate.opsForHash().get(KEY, username);
         return user;
+    }
+
+    @Override
+    public boolean logoutUser(String username) {
+        try{
+            Boolean result = redisTemplate.delete(KEY_TOKEN + "_" + username);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

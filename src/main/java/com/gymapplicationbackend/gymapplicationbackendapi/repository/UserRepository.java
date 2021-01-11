@@ -11,4 +11,5 @@ public interface UserRepository {
     List<User> getAllUser();
     boolean setUserPassword(User user);
     User getUser(String username);
+    boolean logoutUser(String username);
 }

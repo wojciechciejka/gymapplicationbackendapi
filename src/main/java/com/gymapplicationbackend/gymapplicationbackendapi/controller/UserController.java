@@ -85,4 +85,14 @@ public class UserController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
+    @PostMapping("/logoutUser")
+    public ResponseEntity<Boolean> logoutUser(@RequestParam("username") String username){
+        boolean result = userService.logoutUser(username);
+        if(result){
+            return ResponseEntity.ok(true);
+        }else {
+            return ResponseEntity.ok(false);
+        }
+    }
 }
