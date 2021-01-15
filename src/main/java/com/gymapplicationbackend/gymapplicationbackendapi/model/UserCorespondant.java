@@ -9,5 +9,5 @@ public class UserCorespondant implements Serializable {
     private String fullName;
     private String username;
     private String role;
-    private boolean isNewNotification;
+    private boolean newNotification;
 }
