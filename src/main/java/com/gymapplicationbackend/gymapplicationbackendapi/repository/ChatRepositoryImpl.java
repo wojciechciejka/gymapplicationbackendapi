@@ -27,12 +27,13 @@ public class ChatRepositoryImpl implements ChatRepository {
     private static final String KEY_MESSAGES = "MESSAGES";
     private static final String KEY_SEND_TO = "_SEND_TO_";
     private static final String KEY_RECEIVE_FROM_ = "_RECEIVE_FROM_";
+
     @Override
     public List<UserCorespondant> getAllAvaiableCorespondents() {
         List<User> users;
         users = redisTemplate.opsForHash().values(KEY_USERS);
         List<UserCorespondant> userCorespondants = new ArrayList<>();
-        for(User u : users){
+        for (User u : users) {
             UserCorespondant userCorespondant = new UserCorespondant();
             userCorespondant.setFullName(u.getFirstName() + " " + u.getLastName());
             userCorespondant.setUsername(u.getUsername());

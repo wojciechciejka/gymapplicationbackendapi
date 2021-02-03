@@ -8,12 +8,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,22 +20,15 @@ import java.util.Date;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-//    private TokenAuthenticationService tokenAuthenticationService;
-
     @Value("${jwt.expirationTime}")
     private Long expirationTime;
     @Value("${jwt.secret}")
     private String secret;
 
-//    protected JWTLoginFilter(String url) {
-//        super(new AntPathRequestMatcher(url));
-//    }
 
-
-    public JWTLoginFilter(String url, AuthenticationManager authenticationManager){//, TokenAuthenticationService service) {
+    public JWTLoginFilter(String url, AuthenticationManager authenticationManager) {//, TokenAuthenticationService service) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authenticationManager);
-//        tokenAuthenticationService = service;
     }
 
     @Override
@@ -53,7 +43,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             throws IOException, ServletException {
 
         AuthenticationTokenImpl auth = (AuthenticationTokenImpl) authentication;
-//        UserDetails principal = (UserDetails) authentication.getPrincipal();
         String token = JWT.create()
                 .withSubject((String) auth.getPrincipal())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 3600000))

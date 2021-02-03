@@ -1,8 +1,6 @@
 package com.gymapplicationbackend.gymapplicationbackendapi.controller;
 
-import com.gymapplicationbackend.gymapplicationbackendapi.model.NewUser;
 import com.gymapplicationbackend.gymapplicationbackendapi.model.Training;
-import com.gymapplicationbackend.gymapplicationbackendapi.model.User;
 import com.gymapplicationbackend.gymapplicationbackendapi.service.TrainingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +25,21 @@ public class TrainingController {
     }
 
     @PostMapping("/addUserTrainings")
-    public ResponseEntity<String> addUserTraining(@RequestBody Training training){
+    public ResponseEntity<String> addUserTraining(@RequestBody Training training) {
         boolean result = trainingService.addUserTraining(training);
-        if(result){
+        if (result) {
             return ResponseEntity.ok("Training added Successfully !!");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
     @PostMapping("/deleteUserTrainings")
-    public ResponseEntity<String> deleteUserTraining(@RequestParam("playerUsername") String playerUsername, @RequestParam("trainerUsername") String trainerUsername, @RequestParam("date") long date){
+    public ResponseEntity<String> deleteUserTraining(@RequestParam("playerUsername") String playerUsername, @RequestParam("trainerUsername") String trainerUsername, @RequestParam("date") long date) {
         boolean result = trainingService.deleteUserTraining(playerUsername, trainerUsername, date);
-        if(result){
+        if (result) {
             return ResponseEntity.ok("Training deleted Successfully !!");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }

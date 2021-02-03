@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginCredentials credentials){
+    public void login(@RequestBody LoginCredentials credentials) {
 
     }
 }

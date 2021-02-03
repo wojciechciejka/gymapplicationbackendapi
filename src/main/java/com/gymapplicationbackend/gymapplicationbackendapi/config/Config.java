@@ -19,15 +19,15 @@ import static java.util.Collections.singletonList;
 @Configuration
 @EnableSwagger2
 public class Config {
-   @Bean
-    public Docket swaggerApi(){
-       return new Docket(DocumentationType.SWAGGER_2)
-               .select()
-               .paths(PathSelectors.regex("^(?!/(error).*$).*$"))
-               .build()
-               .securitySchemes(singletonList(createSchema()))
-               .securityContexts(singletonList(createContext()));
-   }
+    @Bean
+    public Docket swaggerApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .paths(PathSelectors.regex("^(?!/(error).*$).*$"))
+                .build()
+                .securitySchemes(singletonList(createSchema()))
+                .securityContexts(singletonList(createContext()));
+    }
 
     private SecurityContext createContext() {
         return SecurityContext.builder()

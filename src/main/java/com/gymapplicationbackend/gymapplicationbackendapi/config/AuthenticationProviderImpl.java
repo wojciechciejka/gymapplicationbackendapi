@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class AuthenticationProviderImpl implements org.springframework.security.authentication.AuthenticationProvider {
 
@@ -33,7 +32,6 @@ public class AuthenticationProviderImpl implements org.springframework.security.
             throw new BadCredentialsException("Wrong password.");
         }
 
-        //Right now just authenticate on the basis of the user=pass
         if (loginValidation(username, password)) {
             SessionUser u = new SessionUser();
             u.setRole(role);
@@ -54,10 +52,10 @@ public class AuthenticationProviderImpl implements org.springframework.security.
     private boolean loginValidation(String username, String password) {
         User user = redisService.getUser(username);
         String str = new BCryptPasswordEncoder().encode(password + user.getPassword_salt());
-        if(user != null && new BCryptPasswordEncoder().matches(password + user.getPassword_salt(), user.getPassword())){
+        if (user != null && new BCryptPasswordEncoder().matches(password + user.getPassword_salt(), user.getPassword())) {
             role = user.getRole();
             return true;
-        }else {
+        } else {
             return false;
         }
     }

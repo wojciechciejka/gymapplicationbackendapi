@@ -8,6 +8,7 @@ import java.util.List;
 @Repository
 public interface TrainingRepository {
     List<Training> getUserTrainings(String username);
+
     boolean addUserTraining(Training training);
 
     boolean deleteUserTraining(String playerUsername, String trainerUsername, long date);

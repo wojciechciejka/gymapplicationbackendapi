@@ -1,9 +1,7 @@
 package com.gymapplicationbackend.gymapplicationbackendapi.controller;
 
 import com.gymapplicationbackend.gymapplicationbackendapi.model.Player;
-import com.gymapplicationbackend.gymapplicationbackendapi.model.Trainer;
 import com.gymapplicationbackend.gymapplicationbackendapi.service.PlayerService;
-import com.gymapplicationbackend.gymapplicationbackendapi.service.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +33,9 @@ public class PlayerController {
     @PostMapping(value = "/setPlayer")
     public ResponseEntity<String> setPlayer(@RequestBody Player player) {
         boolean result = playerService.setPlayer(player);
-        if(result){
+        if (result) {
             return ResponseEntity.ok("Player set Successfully !!");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }

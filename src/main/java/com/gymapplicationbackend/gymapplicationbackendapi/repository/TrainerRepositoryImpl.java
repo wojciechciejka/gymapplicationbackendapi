@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
-public class TrainerRepositoryImpl implements TrainerRepository{
+public class TrainerRepositoryImpl implements TrainerRepository {
     @Autowired
     private RedisTemplate redisTemplate;
     private static final String KEY = "TRAINERS";

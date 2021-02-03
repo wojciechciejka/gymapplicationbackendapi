@@ -7,11 +7,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Repository
-public class TrainingRepositoryImpl implements TrainingRepository{
+public class TrainingRepositoryImpl implements TrainingRepository {
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -26,11 +25,11 @@ public class TrainingRepositoryImpl implements TrainingRepository{
 
     @Override
     public boolean addUserTraining(Training training) {
-        try{
+        try {
             redisTemplate.opsForHash().put(training.getPlayerUsername() + "_" + KEY, training.getDate(), training);
             redisTemplate.opsForHash().put(training.getTrainerUsername() + "_" + KEY, training.getDate(), training);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -38,11 +37,11 @@ public class TrainingRepositoryImpl implements TrainingRepository{
 
     @Override
     public boolean deleteUserTraining(String playerUsername, String trainerUsername, long date) {
-        try{
+        try {
             Long result = redisTemplate.opsForHash().delete(playerUsername + "_" + KEY, date);
             result = redisTemplate.opsForHash().delete(trainerUsername + "_" + KEY, date);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

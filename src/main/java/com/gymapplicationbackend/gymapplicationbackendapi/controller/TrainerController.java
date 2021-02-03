@@ -33,9 +33,9 @@ public class TrainerController {
     @PostMapping(value = "/setTrainer")
     public ResponseEntity<String> setTrainer(@RequestBody Trainer trainer) {
         boolean result = trainingService.setTrainer(trainer);
-        if(result){
+        if (result) {
             return ResponseEntity.ok("User Created Successfully !!");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }

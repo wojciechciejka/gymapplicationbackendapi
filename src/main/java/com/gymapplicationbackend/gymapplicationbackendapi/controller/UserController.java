@@ -23,14 +23,13 @@ public class UserController {
     static SecureRandom rnd = new SecureRandom();
 
 
-
     @PostMapping("/user")
-    public ResponseEntity<String> saveUser(@RequestBody NewUser newUser){
+    public ResponseEntity<String> saveUser(@RequestBody NewUser newUser) {
         User user = createNewUser(newUser);
         boolean result = userService.saveUser(user);
-        if(result){
+        if (result) {
             return ResponseEntity.ok("User Created Successfully !!");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
@@ -49,37 +48,37 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<User>> fetchAllUser(){
+    public ResponseEntity<List<User>> fetchAllUser() {
         List<User> users;
         users = userService.fetchAllUser();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/getUser")
-    public ResponseEntity<User> getUser(@RequestParam("username") String username){
+    public ResponseEntity<User> getUser(@RequestParam("username") String username) {
         User user;
         user = userService.getUser(username);
         return ResponseEntity.ok(user);
     }
 
-    private String randomString(){
+    private String randomString() {
         int len = 20;
         StringBuilder sb = new StringBuilder(len);
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
             sb.append(AB.charAt(rnd.nextInt(AB.length())));
         return sb.toString();
     }
 
     @PostMapping("/setUserPassword")
-    public ResponseEntity<Boolean> setUserPassword(@RequestParam("username") String username, @RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword){
+    public ResponseEntity<Boolean> setUserPassword(@RequestParam("username") String username, @RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword) {
         User user = userService.getUser(username);
-        if(user != null){
+        if (user != null) {
             String str = new BCryptPasswordEncoder().encode(oldPassword + user.getPassword_salt());
-            if(new BCryptPasswordEncoder().matches(oldPassword + user.getPassword_salt(), user.getPassword())){
+            if (new BCryptPasswordEncoder().matches(oldPassword + user.getPassword_salt(), user.getPassword())) {
                 user.setPassword(new BCryptPasswordEncoder().encode(newPassword + user.getPassword_salt()));
                 userService.setUserPassword(user);
                 return ResponseEntity.ok(true);
-            }else {
+            } else {
                 return ResponseEntity.ok(false);
             }
         }
@@ -87,11 +86,11 @@ public class UserController {
     }
 
     @PostMapping("/logoutUser")
-    public ResponseEntity<Boolean> logoutUser(@RequestParam("username") String username){
+    public ResponseEntity<Boolean> logoutUser(@RequestParam("username") String username) {
         boolean result = userService.logoutUser(username);
-        if(result){
+        if (result) {
             return ResponseEntity.ok(true);
-        }else {
+        } else {
             return ResponseEntity.ok(false);
         }
     }

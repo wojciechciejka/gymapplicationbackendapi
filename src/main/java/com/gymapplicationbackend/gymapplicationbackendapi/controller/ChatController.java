@@ -33,7 +33,7 @@ public class ChatController {
 
     @PostMapping(value = "/addNewUserCorespondant")
     public ResponseEntity<Boolean> addNewUserCorespondant(@RequestParam("username") String username, @RequestBody UserCorespondant userCorespondant) {
-         boolean value = chatService.addNewUserCorespondant(username, userCorespondant);
+        boolean value = chatService.addNewUserCorespondant(username, userCorespondant);
         return ResponseEntity.ok(value);
     }
 

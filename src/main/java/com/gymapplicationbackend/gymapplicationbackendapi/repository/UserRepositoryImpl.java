@@ -25,9 +25,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean addUser(User user) {
-        try{
+        try {
             redisTemplate.opsForHash().put(KEY, user.getUsername(), user);
-            if(user.getRole().equals(TRAINER_ROLE)){
+            if (user.getRole().equals(TRAINER_ROLE)) {
                 Trainer trainer = new Trainer();
                 trainer.setFirstName(user.getFirstName());
                 trainer.setLastName(user.getLastName());
@@ -36,7 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
                 trainer.setEmailId(user.getEmailId());
                 trainer.setAge(user.getAge());
                 redisTemplate.opsForHash().put(KEY_TRAINER, trainer.getUsername(), trainer);
-            }else{
+            } else {
                 Player player = new Player();
                 player.setFirstName(user.getFirstName());
                 player.setLastName(user.getLastName());
@@ -47,7 +47,7 @@ public class UserRepositoryImpl implements UserRepository {
                 redisTemplate.opsForHash().put(KEY_PLAYER, player.getUsername(), player);
             }
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -75,10 +75,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean logoutUser(String username) {
-        try{
+        try {
             Boolean result = redisTemplate.delete(KEY_TOKEN + "_" + username);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

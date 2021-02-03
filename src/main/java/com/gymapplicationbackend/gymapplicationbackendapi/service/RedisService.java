@@ -29,7 +29,6 @@ public class RedisService {
         template.setHashValueSerializer(new StringRedisSerializer());
         template.setValueSerializer(new StringRedisSerializer());
         Set<String> redisKeys = template.keys(pattern);
-        // Store the keys in a List
         List<String> keysList = new ArrayList<>();
         Iterator<String> it = redisKeys.iterator();
         while (it.hasNext()) {
@@ -40,12 +39,12 @@ public class RedisService {
     }
 
     public boolean addToken(SessionUser sessionUser) {
-        try{
+        try {
             String key = KEY_TOKEN + sessionUser.getUsername();
             template.opsForHash().put(key, sessionUser.getUsername(), sessionUser);
             template.expire(key, 1, TimeUnit.HOURS);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -85,7 +84,6 @@ public class RedisService {
             template.setValueSerializer(new StringRedisSerializer());
         }
         template.opsForValue().set(key, value);
-        // set a expire for a message
         template.expire(key, 5, TimeUnit.MINUTES);
     }
 
@@ -102,13 +100,12 @@ public class RedisService {
             template.setValueSerializer(new StringRedisSerializer());
         }
         template.opsForValue().set(key, value);
-        // set a expire for a message
         template.expire(key, timeout, unit);
     }
 
     public SessionUser getSession(String userName) {
         SessionUser sessionUser;
-        sessionUser = (SessionUser) template.opsForHash().get(KEY_TOKEN+userName, userName);
+        sessionUser = (SessionUser) template.opsForHash().get(KEY_TOKEN + userName, userName);
         return sessionUser;
     }
 }

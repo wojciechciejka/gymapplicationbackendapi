@@ -13,7 +13,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public List<Post> getPosts(){
+    public List<Post> getPosts() {
         return postRepository.findAll();
     }
 
