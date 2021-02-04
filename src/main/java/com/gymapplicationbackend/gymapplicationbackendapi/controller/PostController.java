@@ -17,12 +17,12 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public List<Post> getPosts(){
+    public List<Post> getPosts() {
         return postService.getPosts();
     }
 
     @GetMapping("/posts/{id}")
-    public Post getSinglePosts(@PathVariable long id){
+    public Post getSinglePosts(@PathVariable long id) {
         return postService.getSinglePost(id);
     }
 }

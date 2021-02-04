@@ -22,4 +22,16 @@ public class UserService {
     public List<User> fetchAllUser() {
         return UserRepository.getAllUser();
     }
+
+    public boolean setUserPassword(User user) {
+        return UserRepository.setUserPassword(user);
+    }
+
+    public User getUser(String username) {
+        return UserRepository.getUser(username);
+    }
+
+    public boolean logoutUser(String username) {
+        return UserRepository.logoutUser(username);
+    }
 }
